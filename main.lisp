@@ -1,6 +1,7 @@
 ;;;; main.lisp
 
-(in-package :ants-bot)
+(load "ants.lisp")
+(load "misc.lisp")
 
 ;;; Functions
 
@@ -21,8 +22,7 @@
                      for this-distance = (distance a-row a-col t-row t-col)
                      do (if (< this-distance closest-distance)
                           (let ((closest-distance this-distance)
-                                (closest-target '(t-row t-col)))))
-                     (closest-target))
+                                (closest-target '(t-row t-col))))))
                (append destinations (if (closest-target) closest-target (a-row a-col)))
                (issue-order a-row a-col (get-random-elt (mapcar (lambda (dir)
                                                                   (if (not (waterp a-row a-col dir)) dir))
