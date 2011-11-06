@@ -48,7 +48,7 @@
 
 ;; TODO needs better docstring (needs better code as well!)
 (defun new-location (row col direction)
-  "If direction is defined, returns '(NEW-ROW NEW-COL) for ROW,COL and DIRECTION for a grid that wraps around. Returns NIL if direction is NIL."
+  "If direction is defined, returns '(NEW-ROW . NEW-COL) for ROW, COL, and DIRECTION for a grid that wraps around. Returns NIL if direction is NIL."
   (if direction
     (let ((dst-row (cond ((equal direction :north)
                           (if (<= row 0)
@@ -68,7 +68,7 @@
                             (- (cols *state*) 1)
                             (- col 1)))
                          (t col))))
-      (list dst-row dst-col))
+      (cons dst-row dst-col))
     nil))
 
 (defun waterp (row col direction)
