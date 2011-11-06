@@ -48,27 +48,28 @@
 
 ;; TODO needs better docstring (needs better code as well!)
 (defun new-location (row col direction)
-  "Returns '(NEW-ROW NEW-COL) for ROW,COL and DIRECTION for a grid that
-  wraps around."
-  (let ((dst-row (cond ((equal direction :north)
-                        (if (<= row 0)
+  "If direction is defined, returns '(NEW-ROW NEW-COL) for ROW,COL and DIRECTION for a grid that wraps around. Returns NIL if direction is NIL."
+  (if direction
+    (let ((dst-row (cond ((equal direction :north)
+                          (if (<= row 0)
                             (- (rows *state*) 1)
                             (- row 1)))
-                       ((equal direction :south)
-                        (if (>= (+ row 1) (rows *state*))
+                         ((equal direction :south)
+                          (if (>= (+ row 1) (rows *state*))
                             0
                             (+ row 1)))
-                       (t row)))
-        (dst-col (cond ((equal direction :east)
-                        (if (>= (+ col 1) (cols *state*))
+                         (t row)))
+          (dst-col (cond ((equal direction :east)
+                          (if (>= (+ col 1) (cols *state*))
                             0
                             (+ col 1)))
-                       ((equal direction :west)
-                        (if (<= col 0)
+                         ((equal direction :west)
+                          (if (<= col 0)
                             (- (cols *state*) 1)
                             (- col 1)))
-                       (t col))))
-    (list dst-row dst-col)))
+                         (t col))))
+      (list dst-row dst-col))
+    nil))
 
 (defun waterp (row col direction)
   "Returns T if the tile in the DIRECTION of ROW,COL is water, otherwise

@@ -6,8 +6,7 @@
     (nth (random (length some-list)) some-list)
     (error "Argument to get-random-elt not a list or list is empty.")))
 
-(defun get-directions (a-row a-col t-row t-col)
-  (append (if (> t-row a-row) '(:north) '(:south))
-          (if (> t-col a-col) '(:east) '(:west))))
-
+(defun get-directions (row1 col1 row2 col2)
+  (list (if (> row2 row1) :south :north)   ; Row increases down
+        (if (> col2 col1) :east :west)))   ; Col increases right
 
